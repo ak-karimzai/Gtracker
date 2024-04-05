@@ -1,0 +1,1 @@
+Ссылка на swagger: [https://app.swaggerhub.com/apis-docs/JOKERVA1010123_1/api/1.0.0](https://app.swaggerhub.com/apis-docs/JOKERVA1010123_1/api/1.0.0)
