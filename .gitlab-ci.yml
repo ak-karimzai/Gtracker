@@ -31,4 +31,4 @@ build:
     - install_dependencies
   artifacts:
     paths:
-      - myapp
+      - ./server
