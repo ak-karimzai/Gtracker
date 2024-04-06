@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/ak-karimzai/web-labs/pkg/util"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/util"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

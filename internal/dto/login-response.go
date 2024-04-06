@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/ak-karimzai/web-labs/internal/model"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/model"
 	"time"
 )
 

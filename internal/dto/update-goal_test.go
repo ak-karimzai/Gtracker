@@ -1,7 +1,7 @@
 package dto_test
 
 import (
-	"github.com/ak-karimzai/web-labs/internal/dto"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/dto"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
