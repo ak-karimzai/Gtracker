@@ -1,7 +1,7 @@
 stages:
   - install_dependencies
-  - build
   - test
+  - build
 
 install_dependencies:
   stage: install_dependencies
