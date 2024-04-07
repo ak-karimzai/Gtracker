@@ -19,7 +19,7 @@ test:
   image: golang:1.21.5-alpine3.19
   script:
     - go test ./...
-  dependencies:
+  needs:
     - install_dependencies
 
 build:
@@ -27,8 +27,9 @@ build:
   image: golang:1.21.5-alpine3.19
   script:
     - go build -o server ./cmd/web/
-  dependencies:
+  needs:
     - install_dependencies
+    - test
   artifacts:
     paths:
       - ./server
