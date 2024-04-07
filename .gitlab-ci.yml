@@ -1,0 +1,35 @@
+stages:
+  - install_dependencies
+  - test
+  - build
+
+install_dependencies:
+  stage: install_dependencies
+  image: golang:1.21.5-alpine3.19
+  script:
+    - go mod download
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}-deps
+    paths:
+      - ./go.mod
+      - ./go.sum
+
+test:
+  stage: test
+  image: golang:1.21.5-alpine3.19
+  script:
+    - go test ./...
+  needs:
+    - install_dependencies
+
+build:
+  stage: build
+  image: golang:1.21.5-alpine3.19
+  script:
+    - go build -o server ./cmd/web/
+  needs:
+    - install_dependencies
+    - test
+  artifacts:
+    paths:
+      - ./server
