@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"github.com/ak-karimzai/web-labs/internal/repository/goal"
-	"github.com/ak-karimzai/web-labs/internal/repository/task"
-	"github.com/ak-karimzai/web-labs/internal/repository/user"
-	"github.com/ak-karimzai/web-labs/pkg/db"
-	"github.com/ak-karimzai/web-labs/pkg/logger"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/repository/goal"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/repository/task"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/repository/user"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/db"
+	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/logger"
 )
 
 type Repository struct {
