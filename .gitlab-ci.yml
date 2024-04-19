@@ -42,9 +42,9 @@ generate_docs:
     - go install golang.org/x/tools/cmd/godoc@latest
   script:
     - go get -u golang.org/x/tools/cmd/godoc
-    - godoc -http=:6060 & 
+    - godoc -http=:6060 &
     - sleep 5
-    - wget -qO- http://0.0.0.0:6060/pkg/ > docs.html
+    - wget -qO- http://localhost:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker > docs.html
   artifacts:
     paths:
       - docs.html
