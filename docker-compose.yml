@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  psql:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: goal-tracker
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    # ports:
+    #   - 5432:5432
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERVER_PORT: 80
+      DB_HOST: psql
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_DBNAME: goal-tracker
+      GIN_MODE: release
+      LOGGER_FILE_PATH: ./logs/logs.json
+    working_dir: /app
+    entrypoint: [ "/app/wait-for.sh", "psql:5432", "--", "/app/start.sh" ]
+    command: [ "/app/server" ]
+    depends_on: [ psql ]
+    volumes: [ "./logs/logs.json:/app/logs/logs.json" ]
+    ports: [ "8080:80" ]
