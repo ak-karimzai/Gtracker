@@ -44,7 +44,7 @@ generate_docs:
     - go get -u golang.org/x/tools/cmd/godoc
     - godoc -http=:6060 & 
     - sleep 5
-    - wget -qO- http://localhost:6060/pkg/ > docs.html
+    - wget -qO- http://0.0.0.0:6060/pkg/ > docs.html
   artifacts:
     paths:
       - docs.html
