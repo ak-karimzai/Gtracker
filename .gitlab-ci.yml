@@ -38,6 +38,8 @@ build:
 generate_docs:
   stage: generate_docs
   image: golang:1.21.5-alpine3.19
+  before_script:
+    - apk add --no-cache go-doc
   script:
     - go get -u golang.org/x/tools/cmd/godoc
     - godoc -http=:6060 & 
