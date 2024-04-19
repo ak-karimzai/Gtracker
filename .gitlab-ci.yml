@@ -46,5 +46,5 @@ generate_docs:
   artifacts:
     paths:
       - docs.html
-  only:
-    - triggers
+  when: manual
+    # - triggers
