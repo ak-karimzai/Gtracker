@@ -2,6 +2,7 @@ stages:
   - install_dependencies
   - test
   - build
+  - docs
 
 install_dependencies:
   stage: install_dependencies
@@ -33,3 +34,20 @@ build:
   artifacts:
     paths:
       - ./server
+
+stages:
+  - build
+
+generate_docs:
+  stage: docs
+  image: golang:1.21.5-alpine3.19
+  script:
+    - go get -u golang.org/x/tools/cmd/godoc
+    - godoc -http=:6060 & 
+    - sleep 5
+    - wget -qO- http://localhost:6060/pkg/ > docs.html
+  artifacts:
+    paths:
+      - docs.html
+  only:
+    - triggers
