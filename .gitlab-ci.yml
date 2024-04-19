@@ -40,12 +40,10 @@ generate_docs:
   image: golang:1.21.5-alpine3.19
   before_script:
     - go install golang.org/x/tools/cmd/godoc@latest
-    - hostname=$(hostname)
-    - echo "Hostname: $hostname"
   script:
     - godoc -http=:6060 &
     - sleep 5
-    - wget -qO- "http://$hostname:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker" > docs.html
+    - wget -qO- "localhost:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker" > docs.html
   artifacts:
     paths:
       - docs.html
