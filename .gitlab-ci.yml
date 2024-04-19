@@ -43,12 +43,9 @@ generate_docs:
     - hostname=$(hostname)
     - echo "Hostname: $hostname"
   script:
-    - go get -u golang.org/x/tools/cmd/godoc
     - godoc -http=:6060 &
     - sleep 5
-    - wget -qO- http://$hostname:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker > docs.html
+    - wget -qO- "http://$hostname:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker" > docs.html
   artifacts:
     paths:
       - docs.html
-  when: manual
-    # - triggers
