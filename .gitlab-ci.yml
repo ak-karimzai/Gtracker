@@ -43,7 +43,7 @@ generate_docs:
   script:
     - godoc -http=:6060 &
     - sleep 5
-    - wget -qO- "localhost:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker" > docs.html
+    - wget "localhost:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker" > docs.html
   artifacts:
     paths:
       - docs.html
