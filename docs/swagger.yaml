@@ -222,6 +222,7 @@ info:
   contact: {}
   description: API Server for Goal tracker app
   title: Goal tracker
+  version: "0.1"
 paths:
   /auth/login:
     post:
