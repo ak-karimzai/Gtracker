@@ -28,4 +28,4 @@ services:
     command: [ "/app/server" ]
     depends_on: [ psql ]
     volumes: [ "./logs/logs.json:/app/logs/logs.json" ]
-    ports: [ "8080:80" ]
+    ports: [ "80:80" ]
