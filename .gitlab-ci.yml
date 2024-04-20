@@ -44,7 +44,7 @@ generate_docs:
     - go install golang.org/x/tools/cmd/godoc@latest
   script:
     - godoc -http=:6060 &
-    - sleep 5
+    - until curl -s localhost:6060 > /dev/null; do sleep 1; done
     - curl -o docs.html "localhost:6060/pkg/git.iu7.bmstu.ru/ka19iu10/Gtracker"
   artifacts:
     paths:
