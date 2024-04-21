@@ -19,9 +19,9 @@ import (
 // Handler struct defines the main handler for HTTP request routing in the Gtracker application.
 // It includes handlers for goals, tasks, and authentication, as well as a token maker for user authentication.
 type Handler struct {
-	Goal  goal.Handler     // Goal handles HTTP requests related to goal management.
-	Task  task.Handler     // Task handles HTTP requests related to task management.
-	Auth  auth.Handler     // Auth handles HTTP requests related to user authentication and authorization.
+	Goal  *goal.Handler    // Goal handles HTTP requests related to goal management.
+	Task  *task.Handler    // Task handles HTTP requests related to task management.
+	Auth  *auth.Handler    // Auth handles HTTP requests related to user authentication and authorization.
 	Maker auth_token.Maker // Maker is used for token generation and verification.
 }
 

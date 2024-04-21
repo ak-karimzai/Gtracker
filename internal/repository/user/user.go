@@ -53,7 +53,7 @@ func (a Repository) GetUserByName(ctx context.Context, username string) (model.U
 	row := a.db.QueryRow(ctx, query, username)
 
 	err := row.Scan(
-		&user.Id,
+		&user.ID,
 		&user.FirstName,
 		&user.LastName,
 		&user.Username,

@@ -33,7 +33,7 @@ func (s Service) SignUp(ctx context.Context, up dto.SignUp) error {
 		return err
 	}
 
-	hashedPwd, err := util.HashPasswrod(up.Password)
+	hashedPwd, err := util.HashPassword(up.Password)
 	if err != nil {
 		s.logger.Error(err)
 		return service_errors.ErrServiceNotAvailable
@@ -72,7 +72,7 @@ func (s Service) Login(ctx context.Context, in dto.Login) (*dto.LoginResponse, e
 		return nil, service_errors.ErrServiceNotAvailable
 	}
 
-	token, err := s.tokenMaker.CreateToken(user.Id, user.Username)
+	token, err := s.tokenMaker.CreateToken(user.ID, user.Username)
 	if err != nil {
 		s.logger.Error(err)
 		return nil, service_errors.ErrInvalidCredentials
