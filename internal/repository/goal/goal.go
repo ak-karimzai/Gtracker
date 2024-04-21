@@ -1,24 +1,29 @@
+// Package goal provides functionality for interacting with goals in the Gtracker application.
 package goal
 
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/dto"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/model"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/db"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/logger"
-	"strings"
 )
 
+// Repository represents the repository for interacting with goals in the database.
 type Repository struct {
 	db     *db.DB
 	logger logger.Logger
 }
 
+// NewRepository creates a new instance of the Repository.
 func NewRepository(db *db.DB, logger logger.Logger) *Repository {
 	return &Repository{db: db, logger: logger}
 }
 
+// Create inserts a new goal into the database.
 func (g Repository) Create(ctx context.Context, userId int, goal dto.CreateGoal) (int, error) {
 	var id int
 	query := `
@@ -41,6 +46,7 @@ func (g Repository) Create(ctx context.Context, userId int, goal dto.CreateGoal)
 	return id, nil
 }
 
+// Get retrieves a list of goals for a specific user from the database.
 func (g Repository) Get(ctx context.Context, userId int, listParams dto.ListParams) ([]model.Goal, error) {
 	var goals = []model.Goal{}
 	query := `
@@ -86,6 +92,7 @@ func (g Repository) Get(ctx context.Context, userId int, listParams dto.ListPara
 	return goals, nil
 }
 
+// GetByID retrieves a goal by its ID from the database.
 func (g Repository) GetByID(ctx context.Context, goalId int) (model.Goal, error) {
 	var goal model.Goal
 	query := `
@@ -112,6 +119,7 @@ func (g Repository) GetByID(ctx context.Context, goalId int) (model.Goal, error)
 	return goal, nil
 }
 
+// UpdateByID updates a goal by its ID in the database.
 func (g Repository) UpdateByID(ctx context.Context, goalId int, update dto.UpdateGoal) error {
 	var setValues []string
 	var args []any
@@ -161,6 +169,7 @@ func (g Repository) UpdateByID(ctx context.Context, goalId int, update dto.Updat
 	return nil
 }
 
+// DeleteByID deletes a goal by its ID from the database.
 func (g Repository) DeleteByID(ctx context.Context, goalId int) error {
 	query := `
 		DELETE FROM goals

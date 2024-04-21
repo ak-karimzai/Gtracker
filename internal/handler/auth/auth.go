@@ -1,3 +1,6 @@
+// Package auth provides authentication handling functionalities for the Gtracker application.
+// It includes handling user sign-up and login processes, leveraging the underlying services
+// to validate and persist user data.
 package auth
 
 import (
@@ -12,11 +15,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Handler structures necessary dependencies for handling authentication requests.
 type Handler struct {
 	service *service.Service
 	logger  logger.Logger
 }
 
+// NewHandler creates a new authentication handler instance.
+// It requires a service and a logger as dependencies to process the authentication requests.
+//
+// Parameters:
+// - service: a reference to a Service that provides the business logic for authentication.
+// - logger:  a Logger instance used for logging errors or other important system information.
+//
+// Returns:
+// - *Handler: returns a pointer to a new Handler instance.
 func NewHandler(service *service.Service, logger logger.Logger) *Handler {
 	return &Handler{service: service, logger: logger}
 }

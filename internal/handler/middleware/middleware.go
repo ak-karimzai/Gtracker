@@ -1,3 +1,6 @@
+// Package middleware provides middleware functions for handling authentication and authorization
+// in the Gtracker application. This includes user authentication, token verification, and
+// extracting user information from the request context.
 package middleware
 
 import (
@@ -10,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Predefined errors for authentication middleware.
 var (
 	ErrInvalidAuthHeader     = errors.New("auth header is empty or not supported by server")
 	ErrUnsupportedAuthHeader = errors.New("unsupported auth header by user")
@@ -17,12 +21,16 @@ var (
 	ErrCredentialsNotFound   = errors.New("user info not found")
 )
 
+// Constants for authentication middleware.
 const (
 	authorizationHeader = "Authorization"
 	supportedAuth       = "bearer"
 	key                 = "userInfo"
 )
 
+// UserAuthentication returns a Gin middleware function that performs user authentication
+// based on the provided token maker. It verifies the authenticity of the token present
+// in the Authorization header and sets the user information in the request context.
 func UserAuthentication(tokenMaker auth_token.Maker) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		header := ctx.GetHeader(authorizationHeader)
@@ -59,6 +67,9 @@ func UserAuthentication(tokenMaker auth_token.Maker) gin.HandlerFunc {
 
 }
 
+// GetUserInfo retrieves user information from the Gin context. It returns the user information
+// extracted by the authentication middleware or returns an error if the user information is not found
+// or is in an invalid format.
 func GetUserInfo(c *gin.Context) (*auth_token.Payload, error) {
 	userInfo, ok := c.Get(key)
 	if !ok {
