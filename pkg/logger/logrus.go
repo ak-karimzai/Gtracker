@@ -1,11 +1,16 @@
+// Package logger provides a logger implementation using Logrus.
 package logger
 
 import (
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"os"
+
+	"github.com/sirupsen/logrus"
 )
 
+// NewLogger creates a new logger instance. If a log file path is provided,
+// the logs will be written to that file. Otherwise, logs will be written to stdout.
+// It returns a Logger instance and an error if any.
 func NewLogger(logFilePath ...string) (Logger, error) {
 	var f *os.File
 	var err error

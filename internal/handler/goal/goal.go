@@ -1,3 +1,6 @@
+// Package goal handles all functionalities related to goals management in the Gtracker application.
+// This includes creating, updating, and retrieving goals, as well as other operations that
+// directly involve goal manipulation.
 package goal
 
 import (
@@ -14,11 +17,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Handler manages requests related to goals. It uses a service layer to process
+// business logic and a logger to log events or errors that occur during request processing.
 type Handler struct {
 	service *service.Service
 	logger  logger.Logger
 }
 
+// NewHandler creates a new instance of Handler for managing goal-related requests.
+// It requires a service and a logger as dependencies.
+//
+// Parameters:
+// - service: A pointer to a Service that encapsulates the business logic for goal management.
+// - logger:  A Logger instance used for logging purposes throughout the goal operations.
+//
+// Returns:
+// - *Handler: A pointer to the newly created Handler instance.
 func NewHandler(service *service.Service, logger logger.Logger) *Handler {
 	return &Handler{
 		service: service,

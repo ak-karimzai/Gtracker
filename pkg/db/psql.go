@@ -1,16 +1,21 @@
+// Package db provides functionality for interacting with a PostgreSQL database.
 package db
 
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v5/pgxpool"
 	"time"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+// DB represents a connection pool to the PostgreSQL database.
 type DB struct {
 	*pgxpool.Pool
 }
 
+// NewPSQL creates a new PostgreSQL connection pool with the provided connection parameters.
+// It returns a DB instance and an error if the connection fails.
 func NewPSQL(
 	Host string,
 	Port string,

@@ -1,3 +1,6 @@
+// Package main is the entry point for the Gtracker API server.
+// This server provides endpoints for tracking and managing goals.
+// The server handles user authentication, database operations, and request routing.
 package main
 
 import (
@@ -94,6 +97,13 @@ func main() {
 	conn.Close()
 }
 
+// init initializes the application configuration and sets up the Swagger info.
+//
+// It loads the configuration using the util.NewConfig() function. If an error occurs during loading,
+// it logs the error and exits the application.
+// The loaded configuration is then printed to the log.
+// If the ServerPort in the configuration is not set to "80", the SwaggerInfo.Host is updated to include the ServerPort.
+// If the BasePath in the configuration is not empty, the SwaggerInfo.BasePath is updated.
 func init() {
 	var err error
 	config, err = util.NewConfig()

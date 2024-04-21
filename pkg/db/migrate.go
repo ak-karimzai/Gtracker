@@ -1,13 +1,17 @@
+// Package db provides functionality for database migrations.
 package db
 
 import (
 	"errors"
 	"fmt"
+
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
+// Migrate performs database migration using the specified migration URL and database connection parameters.
+// It returns an error if migration fails.
 func Migrate(migrationUrl string,
 	Host string,
 	Port string,

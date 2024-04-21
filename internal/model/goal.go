@@ -1,9 +1,11 @@
+// Package model defines structures representing data models used in the Gtracker application.
 package model
 
 import (
 	"time"
 )
 
+// Goal represents a goal entity in the Gtracker application.
 type Goal struct {
 	ID               int       `json:"id" example:"1"`
 	Name             string    `json:"name" minLength:"3" maxLength:"64" example:"Sport"`
@@ -13,5 +15,5 @@ type Goal struct {
 	TargetDate       time.Time `json:"target_date" example:"2024-01-01T15:04:05Z"`
 	CreatedAt        time.Time `json:"created_at" example:"2023-04-01T15:04:05Z"`
 	UpdatedAt        time.Time `json:"updated_at" example:"2023-04-01T15:04:05Z"`
-	UserID           int       `json:"-"`
+	UserID           int       `json:"-"` // UserID represents the ID of the user who owns the goal.
 }

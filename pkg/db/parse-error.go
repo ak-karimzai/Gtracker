@@ -1,19 +1,25 @@
+// Package db provides functionality for interacting with the database.
 package db
 
 import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/jackc/pgx/v5/pgconn"
 	"strings"
+
+	"github.com/jackc/pgx/v5/pgconn"
 )
 
-var (
-	ErrNotFound  = errors.New("Not found")
-	ErrConflict  = errors.New("Already exist")
-	ErrForbidden = errors.New("Forbidden operation")
-)
+// ErrNotFound is returned when the requested resource is not found in the database.
+var ErrNotFound = errors.New("Not found")
 
+// ErrConflict is returned when there is a conflict in the database (e.g., duplicate key).
+var ErrConflict = errors.New("Already exist")
+
+// ErrForbidden is returned when the operation is forbidden by the database constraints.
+var ErrForbidden = errors.New("Forbidden operation")
+
+// ParseError parses the database error and returns the corresponding application error.
 func (db *DB) ParseError(err error) error {
 	if err == sql.ErrNoRows || strings.Contains(
 		sql.ErrNoRows.Error(), err.Error()) {

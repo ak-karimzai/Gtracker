@@ -1,27 +1,32 @@
+// Package auth provides authentication services.
 package auth
 
 import (
 	"context"
 	"errors"
+
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/dto"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/repository"
 	service_errors "git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/service/service-errors"
-	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/auth-token"
+	auth_token "git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/auth-token"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/db"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/logger"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/util"
 )
 
+// Service provides authentication services.
 type Service struct {
 	repo       *repository.Repository
 	tokenMaker auth_token.Maker
 	logger     logger.Logger
 }
 
+// NewService creates a new instance of the authentication service.
 func NewService(repo *repository.Repository, tokenMaker auth_token.Maker, logger logger.Logger) *Service {
 	return &Service{repo: repo, tokenMaker: tokenMaker, logger: logger}
 }
 
+// SignUp registers a new user.
 func (s Service) SignUp(ctx context.Context, up dto.SignUp) error {
 	if err := up.Validate(); err != nil {
 		s.logger.Error(err)
@@ -45,6 +50,7 @@ func (s Service) SignUp(ctx context.Context, up dto.SignUp) error {
 	return nil
 }
 
+// Login authenticates a user.
 func (s Service) Login(ctx context.Context, in dto.Login) (*dto.LoginResponse, error) {
 	if err := in.Validate(); err != nil {
 		s.logger.Error(err)

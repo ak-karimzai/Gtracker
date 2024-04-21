@@ -1,3 +1,5 @@
+// Package handler provides HTTP request handlers for different endpoints in the Gtracker application.
+// It includes handlers for authentication, goal management, task management, and middleware initialization.
 package handler
 
 import (
@@ -14,13 +16,24 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// Handler struct defines the main handler for HTTP request routing in the Gtracker application.
+// It includes handlers for goals, tasks, and authentication, as well as a token maker for user authentication.
 type Handler struct {
-	Goal
-	Task
-	Auth
-	auth_token.Maker
+	Goal  goal.Handler     // Goal handles HTTP requests related to goal management.
+	Task  task.Handler     // Task handles HTTP requests related to task management.
+	Auth  auth.Handler     // Auth handles HTTP requests related to user authentication and authorization.
+	Maker auth_token.Maker // Maker is used for token generation and verification.
 }
 
+// NewHandler creates a new instance of the Handler struct with the provided services, token maker, and logger.
+//
+// Parameters:
+//   - services: A pointer to the service layer providing business logic for the application.
+//   - tokenMaker: A token maker instance for user authentication.
+//   - logger: A logger instance for logging events or errors.
+//
+// Returns:
+//   - *Handler: A pointer to the newly created Handler instance.
 func NewHandler(services *service.Service, tokenMaker auth_token.Maker, logger logger.Logger) *Handler {
 	return &Handler{
 		Goal:  goal.NewHandler(services, logger),
@@ -30,6 +43,14 @@ func NewHandler(services *service.Service, tokenMaker auth_token.Maker, logger l
 	}
 }
 
+// InitRoutes initializes routes for HTTP request handling using Gin framework.
+// It sets up routes for various endpoints including authentication, goal management, and task management.
+//
+// Parameters:
+//   - basePath: The base path for the API endpoints.
+//
+// Returns:
+//   - *gin.Engine: A Gin Engine instance with initialized routes.
 func (handler *Handler) InitRoutes(basePath string) *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())

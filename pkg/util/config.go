@@ -1,16 +1,20 @@
+// Package util provides utility functions for configuration handling.
 package util
 
 import (
-	"github.com/spf13/viper"
 	"os"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
-const (
-	ENV_DEVELOPMENT = "DEV"
-	ENV_PRODUCTION  = "PROD"
-)
+// ENV_DEVELOPMENT represents the development environment.
+const ENV_DEVELOPMENT = "DEV"
 
+// ENV_PRODUCTION represents the production environment.
+const ENV_PRODUCTION = "PROD"
+
+// Config represents the application configuration.
 type Config struct {
 	ServerPort          string        `mapstructure:"SERVER_PORT"`
 	DBHost              string        `mapstructure:"DB_HOST"`
@@ -28,6 +32,8 @@ type Config struct {
 	BasePath            string        `mapstructure:"BASE_PATH"`
 }
 
+// NewConfig creates a new configuration instance by reading from environment variables and .env file.
+// It returns a Config instance and an error if any.
 func NewConfig() (Config, error) {
 	var config Config
 

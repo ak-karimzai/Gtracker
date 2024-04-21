@@ -1,8 +1,10 @@
+// Package task provides services related to managing tasks.
 package task
 
 import (
 	"context"
 	"errors"
+
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/dto"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/model"
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/internal/repository"
@@ -11,15 +13,18 @@ import (
 	"git.iu7.bmstu.ru/ka19iu10/Gtracker/pkg/logger"
 )
 
+// Service provides methods for managing tasks.
 type Service struct {
 	repo   *repository.Repository
 	logger logger.Logger
 }
 
+// NewService creates a new instance of the task service.
 func NewService(repo *repository.Repository, logger logger.Logger) *Service {
 	return &Service{repo: repo, logger: logger}
 }
 
+// Create creates a new task for a goal.
 func (s Service) Create(ctx context.Context, userId, goalId int, task dto.CreateTask) (model.Task, error) {
 	if err := task.Validate(); err != nil {
 		s.logger.Error(err)
@@ -59,6 +64,7 @@ func (s Service) Create(ctx context.Context, userId, goalId int, task dto.Create
 	return taskFromDB, nil
 }
 
+// Get retrieves tasks for a goal based on provided parameters.
 func (s Service) Get(ctx context.Context, userId, goalId int, listParams dto.ListParams) ([]model.Task, error) {
 	if err := listParams.Validate(); err != nil {
 		s.logger.Error(err)
@@ -88,6 +94,7 @@ func (s Service) Get(ctx context.Context, userId, goalId int, listParams dto.Lis
 	return tasks, nil
 }
 
+// GetByID retrieves a task by its ID and ensures the user has permission to access it.
 func (s Service) GetByID(ctx context.Context, userId, goalId, taskId int) (model.Task, error) {
 	task, err := s.repo.Task.GetByID(ctx, taskId)
 	if err != nil {
@@ -121,6 +128,7 @@ func (s Service) GetByID(ctx context.Context, userId, goalId, taskId int) (model
 	return task, nil
 }
 
+// UpdateByID updates a task by its ID.
 func (s Service) UpdateByID(ctx context.Context, userId, goalId, taskId int, task dto.UpdateTask) error {
 	if err := task.Validate(); err != nil {
 		return service_errors.ErrInvalidCredentials
@@ -143,6 +151,7 @@ func (s Service) UpdateByID(ctx context.Context, userId, goalId, taskId int, tas
 	return nil
 }
 
+// DeleteByID deletes a task by its ID.
 func (s Service) DeleteByID(ctx context.Context, userId, goalId, taskId int) error {
 	_, err := s.GetByID(ctx, userId, goalId, taskId)
 	if err != nil {
